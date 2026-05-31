@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, FileText, ChevronDown, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import { Link } from 'react-router-dom';
 const roles = [
   'Full Stack Developer',
   'MERN Stack Developer',
@@ -163,32 +163,33 @@ export const Hero: React.FC = () => {
               className="hero-ctas"
               style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem' }}
             >
-              <motion.button
+              {/* <motion.button
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.96 }}
                 onClick={() => handleNavClick('#projects')}
                 className="btn btn-primary"
               >
                 View Projects <ArrowRight size={18} />
-              </motion.button>
+              </motion.button> */}
+              <Link to="/projects">
+  <motion.button
+    whileHover={{ scale: 1.04, y: -2 }}
+    whileTap={{ scale: 0.96 }}
+    className="btn btn-primary"
+  >
+    View Projects <ArrowRight size={18} />
+  </motion.button>
+</Link>
 
-              {/* <motion.a
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.96 }}
+              
+                <motion.a
                 href="/Dipak_Sah_Resume.pdf"
-                download="Dipak_Sah_Resume.pdf"
+                download
                 className="btn btn-secondary"
-              >
-                <FileText size={18} /> Download Resume
-              </motion.a> */}
-              <motion.a
-  href="/Dipak_Sah_Resume.pdf"
-  download
-  className="btn btn-secondary"
->
-  <FileText size={18} />
-  Download Resume
-</motion.a>
+                >
+                <FileText size={18} />
+                Download Resume
+              </motion.a>
 
               <motion.button
                 whileHover={{ scale: 1.04, y: -2 }}
