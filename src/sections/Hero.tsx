@@ -163,23 +163,16 @@ export const Hero: React.FC = () => {
               className="hero-ctas"
               style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem' }}
             >
-              {/* <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={() => handleNavClick('#projects')}
-                className="btn btn-primary"
-              >
-                View Projects <ArrowRight size={18} />
-              </motion.button> */}
-              <Link to="/projects">
-  <motion.button
-    whileHover={{ scale: 1.04, y: -2 }}
-    whileTap={{ scale: 0.96 }}
-    className="btn btn-primary"
-  >
-    View Projects <ArrowRight size={18} />
-  </motion.button>
-</Link>
+              
+            <Link to="/projects">
+            <motion.button
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              className="btn btn-primary"
+            >
+              View Projects <ArrowRight size={18} />
+            </motion.button>
+          </Link>
 
               
                 <motion.a

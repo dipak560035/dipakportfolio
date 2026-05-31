@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ParticleBackground } from './components/ParticleBackground';
-import { CustomCursor } from './components/CustomCursor';
+// import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { RecruiterWidget } from './components/RecruiterWidget';
+// import { RecruiterWidget } from './components/RecruiterWidget';
 import { Hero } from './sections/Hero';
 import { About } from './sections/About';
 import { Skills } from './sections/Skills';
@@ -115,7 +115,7 @@ const App: React.FC = () => {
       <ParticleBackground />
 
       {/* Lag-free Dual Ring Custom Cursor */}
-      <CustomCursor />
+      {/* <CustomCursor /> */}
 
       {/* Sticky Header Navbar */}
       <Navbar />
@@ -159,7 +159,7 @@ const App: React.FC = () => {
       </main>
 
       {/* Floating Recruiter Message Center Widget */}
-      <RecruiterWidget />
+      {/* <RecruiterWidget /> */}
 
       {/* Web Footer info */}
       <Footer />
