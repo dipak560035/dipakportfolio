@@ -172,7 +172,7 @@ export const Hero: React.FC = () => {
                 View Projects <ArrowRight size={18} />
               </motion.button>
 
-              <motion.a
+              {/* <motion.a
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.96 }}
                 href="/Dipak_Sah_Resume.pdf"
@@ -180,7 +180,15 @@ export const Hero: React.FC = () => {
                 className="btn btn-secondary"
               >
                 <FileText size={18} /> Download Resume
-              </motion.a>
+              </motion.a> */}
+              <motion.a
+  href="/Dipak_Sah_Resume.pdf"
+  download
+  className="btn btn-secondary"
+>
+  <FileText size={18} />
+  Download Resume
+</motion.a>
 
               <motion.button
                 whileHover={{ scale: 1.04, y: -2 }}
