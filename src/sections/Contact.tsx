@@ -313,7 +313,7 @@ export const Contact: React.FC = () => {
                     <span style={{ position: 'absolute', bottom: '-1px', left: 0, right: 0, height: '2px', backgroundColor: 'var(--primary)' }} />
                   )}
                 </button>
-                <button
+                {/* <button
                   type="button"
                   onClick={() => setActiveTab('console')}
                   style={{
@@ -331,7 +331,7 @@ export const Contact: React.FC = () => {
                   {activeTab === 'console' && (
                     <span style={{ position: 'absolute', bottom: '-1px', left: 0, right: 0, height: '2px', backgroundColor: 'var(--accent)' }} />
                   )}
-                </button>
+                </button> */}
               </div>
 
               {activeTab === 'form' ? (
