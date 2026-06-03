@@ -183,7 +183,7 @@ export const Hero: React.FC = () => {
                 <FileText size={18} />
                 Download Resume
               </motion.a>
-
+<Link to="/contact">
               <motion.button
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.96 }}
@@ -192,6 +192,7 @@ export const Hero: React.FC = () => {
               >
                 Contact Me
               </motion.button>
+</Link>
             </motion.div>
 
             {/* Social Icons */}
