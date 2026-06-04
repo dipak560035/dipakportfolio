@@ -1,28 +1,37 @@
-
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { ParticleBackground } from './components/ParticleBackground';
+// import { ParticleBackground } from './components/ParticleBackground';
 // import { CustomCursor } from './components/CustomCursor';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
+// import { Navbar } from './components/Navbar';
+// import { Footer } from './components/Footer';
 // import { RecruiterWidget } from './components/RecruiterWidget';
-import { Hero } from './sections/Hero';
-import { About } from './sections/About';
-import { Skills } from './sections/Skills';
-import { Services } from './sections/Services';
-import { Experience } from './sections/Experience';
-import { Education } from './sections/Education';
-import { Projects } from './sections/Projects';
-import { Achievements } from './sections/Achievements';
-import { Contact } from './sections/Contact';
-import { useScrollReveal } from './hooks/useScrollReveal';
-import { Terminal } from 'lucide-react';
+// import { Hero } from './sections/Hero';
+// import { About } from './sections/About';
+// import { Skills } from './sections/Skills';
+// import { Services } from './sections/Services';
+// import { Experience } from './sections/Experience';
+// import { Education } from './sections/Education';
+// import { Projects } from './sections/Projects';
+// import { Achievements } from './sections/Achievements';
+// import { Contact } from './sections/Contact';
+// import { useScrollReveal } from './hooks/useScrollReveal';
+import { Contact, Terminal } from 'lucide-react';
+import { Navbar } from './Navbar';
+import { Footer } from './Footer';
+import { Hero } from '../sections/Hero';
+import { About } from '../sections/About';
+import { Projects } from '../sections/Projects';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { ParticleBackground } from './ParticleBackground';
+import { Education } from '../sections/Education';
+import { Achievements } from '../sections/Achievements';
+import { Skills } from '../sections/Skills';
+import { Services } from '../sections/Services';
+import { Experience } from '../sections/Experience';
 
-// HomePage component - Shows Hero, About, Projects, and Contact sections
+// Create HomePage component with multiple sections
 const HomePage: React.FC = () => {
   const location = useLocation();
-  
-  // Trigger scroll reveal animations hook - re-run on route change
   useScrollReveal([location.pathname]);
 
   return (
@@ -141,7 +150,7 @@ const App: React.FC = () => {
       {/* Portfolio Main Routing Sections */}
       <main style={{ minHeight: '80vh', paddingBottom: '60px' }}>
         <Routes>
-          {/* Home Route - Shows Hero, About, Projects, and Contact */}
+          {/* Home Route - NOW SHOWS Hero, About, Projects, Contact */}
           <Route path="/" element={<HomePage />} />
           
           {/* About Route (aggregating biography, academic timeline & licensed engineering achievements) */}
@@ -165,7 +174,7 @@ const App: React.FC = () => {
           {/* Experience Route */}
           <Route path="/experience" element={<Experience />} />
           
-          {/* Projects Route - Shows all projects */}
+          {/* Projects Route */}
           <Route path="/projects" element={<Projects />} />
           
           {/* Contact Route */}
@@ -183,6 +192,7 @@ const App: React.FC = () => {
       <Footer />
     </>
   );
+  
 };
 
 export default App;

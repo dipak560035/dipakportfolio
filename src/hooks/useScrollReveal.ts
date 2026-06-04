@@ -33,3 +33,8 @@ export const useScrollReveal = (deps: React.DependencyList = []) => {
     };
   }, deps);
 };
+
+
+
+
+
