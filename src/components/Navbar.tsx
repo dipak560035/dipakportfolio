@@ -1058,7 +1058,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon, Terminal, ChevronDown, Code, User, Briefcase, Cpu, Layers, Zap, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface NavItem {
   label: string;
@@ -1096,7 +1096,7 @@ export const Navbar: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const location = useLocation();
-  const navigate = useNavigate();
+ 
   const activeSection = location.pathname;
 
   // Initialize theme - Fixed: Used lazy initialization
