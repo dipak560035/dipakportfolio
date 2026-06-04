@@ -1166,13 +1166,13 @@ export const Navbar: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNavigation = (path: string) => {
-    navigate(path);
-    if (isOpen) {
-      setIsOpen(false);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // const handleNavigation = (path: string) => {
+  //   navigate(path);
+  //   if (isOpen) {
+  //     setIsOpen(false);
+  //   }
+  //   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // };
 
   const handleDropdownHover = (label: string | null) => {
     if (window.innerWidth >= 992) {
