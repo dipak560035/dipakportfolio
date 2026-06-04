@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, Terminal, ChevronDown, Code, User, Briefcase, Cpu, Layers, Zap, Mail } from 'lucide-react';
+import { Menu, X, Sun, Moon, Terminal, ChevronDown, Code, User, Briefcase, Cpu, Layers, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
