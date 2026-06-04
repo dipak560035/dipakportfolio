@@ -313,25 +313,7 @@ export const Contact: React.FC = () => {
                     <span style={{ position: 'absolute', bottom: '-1px', left: 0, right: 0, height: '2px', backgroundColor: 'var(--primary)' }} />
                   )}
                 </button>
-                {/* <button
-                  type="button"
-                  onClick={() => setActiveTab('console')}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    border: 'none',
-                    background: 'transparent',
-                    color: activeTab === 'console' ? 'var(--accent)' : 'var(--text-secondary)',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    fontSize: '0.9rem',
-                    position: 'relative'
-                  }}
-                >
-                  Recruiter Console
-                  {activeTab === 'console' && (
-                    <span style={{ position: 'absolute', bottom: '-1px', left: 0, right: 0, height: '2px', backgroundColor: 'var(--accent)' }} />
-                  )}
-                </button> */}
+              
               </div>
 
               {activeTab === 'form' ? (
