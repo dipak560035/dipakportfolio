@@ -1118,7 +1118,7 @@ export const Navbar: React.FC = () => {
 
   // Handle scroll effects
   useEffect(() => {
-    let scrollTimeout: NodeJS.Timeout;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
     
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
