@@ -1056,7 +1056,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon, Terminal, ChevronDown, Code, User, Briefcase, Cpu, Layers, Zap, Mail } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -1323,9 +1323,7 @@ export const Navbar: React.FC = () => {
                 <a href="https://linkedin.com/in/dipak-sah-bab95a202" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <FaLinkedin size={16} />
                 </a>
-                {/* <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                  <FaTwitter size={16} />
-                </a> */}
+              
               </div>
             </div>
 
