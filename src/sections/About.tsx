@@ -1,20 +1,20 @@
 import React from 'react';
-import { Award, Briefcase, GraduationCap, Calendar, CheckCircle } from 'lucide-react';
+import { Award, Briefcase, GraduationCap, ShieldCheck, CheckCircle, Terminal, MapPin, Mail, Phone, Code } from 'lucide-react';
 
 export const About: React.FC = () => {
   const stats = [
-    { icon: <Briefcase size={22} />, label: 'Experience', value: 'Internship & Freelance' },
-    { icon: <Award size={22} />, label: 'Projects Completed', value: '10+ Applications' },
-    { icon: <GraduationCap size={22} />, label: 'Education', value: 'B.E. Computer Science' },
-    { icon: <Calendar size={22} />, label: 'Licensing', value: 'NEC Registered Engineer' },
+    { icon: <Briefcase size={20} />, label: 'Experience', value: 'Internship & Freelance' },
+    { icon: <Award size={20} />, label: 'Projects Built', value: '10+ Web Applications' },
+    { icon: <GraduationCap size={20} />, label: 'Education', value: 'B.E. Computer Science' },
+    { icon: <ShieldCheck size={20} />, label: 'Engineering License', value: 'NEC Registered #15998 Comp' },
   ];
 
   const highlights = [
-    'Full Stack Web Applications development (MERN & Next.js)',
-    'Scalable API integration with PostgreSQL & MongoDB databases',
-    'Real-time solutions utilizing Socket.io communication protocol',
-    'Modern UI/UX design with responsiveness & optimization',
-    'Nepal Engineering Council license registered (#15998 Comp)',
+    'Full Stack Web Application development with MERN Stack & Next.js',
+    'Scalable RESTful API architecture with PostgreSQL & MongoDB databases',
+    'Real-time web communication utilizing Socket.io protocol',
+    'Responsive modern UI engineering with clean component design',
+    'Licensed Computer Engineer with Nepal Engineering Council registration',
   ];
 
   return (
@@ -29,46 +29,101 @@ export const About: React.FC = () => {
       <div className="container">
         {/* Section Header */}
         <div className="section-header reveal">
-          <span className="section-tag">About Me</span>
+          <span className="section-tag">
+            <Terminal size={14} /> // 01. Profile & Architecture
+          </span>
           <h2 className="section-title">
-            Discover My <span>Journey</span>
+            Engineering <span>Background</span>
           </h2>
           <p className="section-subtitle">
-            A software engineer dedicated to building high-fidelity digital solutions.
+            Computer Science Engineer focused on building scalable, production-grade web applications.
           </p>
         </div>
 
-        {/* Content Grid */}
+        {/* Content Layout Grid */}
         <div
-          className="about-grid"
+          className="about-grid-layout"
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr',
-            gap: '3rem',
+            gap: '2.5rem',
             alignItems: 'start',
           }}
         >
-          {/* Left Column: Stats & Highlights */}
-          <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: 700, fontFamily: 'var(--font-display)' }}>
-              Professional Biography
-            </h3>
-            
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.8' }}>
-              I am Dipak Sah, a Computer Science Engineer and Full Stack Developer with experience in building modern web applications using MERN Stack, Next.js, TypeScript, PostgreSQL, and Socket.io. I enjoy creating scalable, user-focused digital solutions and contributing to innovative technology projects. 
-            </p>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.8' }}>
-              My interests include full-stack development, software engineering, and emerging web technologies. I am passionate about continuous learning and building impactful products that solve real-world problems. With my engineering mindset and developer skills, I focus on performance, scalability, and exceptional UI/UX design.
-            </p>
+          {/* Left Column: Biography & Technical Profile */}
+          <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+            {/* Profile Status Badge Header */}
+            <div
+              className="glass-card font-mono"
+              style={{
+                padding: '1.25rem 1.5rem',
+                borderLeft: '3px solid var(--accent)',
+                backgroundColor: 'rgba(11, 15, 23, 0.8)',
+                fontSize: '0.84rem',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+                gap: '0.85rem',
+              }}
+            >
+              <div>
+                <span style={{ color: 'var(--text-muted)' }}>ROLE: </span>
+                <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>FULL STACK DEV</span>
+              </div>
+              <div>
+                <span style={{ color: 'var(--text-muted)' }}>FOCUS: </span>
+                <span style={{ color: 'var(--accent)', fontWeight: 700 }}>MERN / NEXT.JS</span>
+              </div>
+              <div>
+                <span style={{ color: 'var(--text-muted)' }}>LOCATION: </span>
+                <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>NEPAL</span>
+              </div>
+              <div>
+                <span style={{ color: 'var(--text-muted)' }}>LICENSE: </span>
+                <span style={{ color: '#10B981', fontWeight: 700 }}>NEC #15998 COMP</span>
+              </div>
+            </div>
 
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <h3 style={{ fontSize: '1.6rem', fontWeight: 700, fontFamily: 'var(--font-display)' }}>
+                Professional Biography
+              </h3>
+
+              <p style={{ color: 'var(--text-secondary)', fontSize: '1.02rem', lineHeight: '1.8' }}>
+                I am <strong style={{ color: 'var(--text-primary)' }}>Dipak Sah</strong>, a Computer Science Engineer and Full Stack Developer with experience in engineering modern web applications using MERN Stack, Next.js, TypeScript, PostgreSQL, and Socket.io. I focus on clean code structure, high-performance database schema design, and seamless user experiences.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '1.02rem', lineHeight: '1.8' }}>
+                With a background in Computer Science & Engineering and official Nepal Engineering Council licensing, I combine fundamental engineering principles with modern web technologies to build scalable products that solve real-world problems.
+              </p>
+            </div>
+
+            {/* Key Competencies List */}
             <div style={{ marginTop: '0.5rem' }}>
-              <h4 style={{ fontSize: '1.15rem', fontWeight: 600, marginBottom: '1rem', color: 'var(--text-primary)' }}>
-                Key Competencies:
+              <h4
+                className="font-mono"
+                style={{
+                  fontSize: '0.9rem',
+                  fontWeight: 700,
+                  marginBottom: '0.85rem',
+                  color: 'var(--accent)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                // Core Engineering Capabilities:
               </h4>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {highlights.map((item, idx) => (
-                  <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-                    <CheckCircle size={18} style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '0.2rem' }} />
+                  <li
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '0.75rem',
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.95rem',
+                    }}
+                  >
+                    <CheckCircle size={17} style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '0.2rem' }} />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -76,14 +131,14 @@ export const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Interactive Cards & Grid */}
-          <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            {/* Stats Cards Grid */}
+          {/* Right Column: Technical Stats & General Information */}
+          <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+            {/* Stats Grid */}
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '1.25rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '1rem',
               }}
             >
               {stats.map((stat, idx) => (
@@ -91,29 +146,38 @@ export const About: React.FC = () => {
                   key={idx}
                   className="glass-card"
                   style={{
-                    padding: '1.5rem',
+                    padding: '1.25rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.75rem',
+                    gap: '0.65rem',
                     alignItems: 'flex-start',
                   }}
                 >
                   <div
                     style={{
-                      padding: '0.6rem',
-                      borderRadius: '10px',
-                      background: 'rgba(59, 130, 246, 0.08)',
-                      color: 'var(--primary)',
-                      border: '1px solid rgba(59, 130, 246, 0.15)',
+                      padding: '0.5rem',
+                      borderRadius: '8px',
+                      background: 'rgba(6, 182, 212, 0.08)',
+                      color: 'var(--accent)',
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
                     }}
                   >
                     {stat.icon}
                   </div>
                   <div>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <p
+                      className="font-mono"
+                      style={{
+                        color: 'var(--text-muted)',
+                        fontSize: '0.72rem',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}
+                    >
                       {stat.label}
                     </p>
-                    <p style={{ fontSize: '1.05rem', fontWeight: 700, marginTop: '0.25rem' }}>
+                    <p style={{ fontSize: '0.98rem', fontWeight: 700, marginTop: '0.2rem' }}>
                       {stat.value}
                     </p>
                   </div>
@@ -121,46 +185,77 @@ export const About: React.FC = () => {
               ))}
             </div>
 
-            {/* Quick Profile Summary Details */}
+            {/* General Information Terminal Card */}
             <div
               className="glass-card"
               style={{
-                padding: '2rem',
+                padding: '1.75rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1.25rem',
               }}
             >
-              <h4 style={{ fontSize: '1.25rem', fontWeight: 700, fontFamily: 'var(--font-display)' }}>
-                General Information
+              <h4
+                className="font-mono"
+                style={{
+                  fontSize: '0.9rem',
+                  fontWeight: 700,
+                  color: 'var(--accent)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                }}
+              >
+                <Code size={16} /> Technical Profile Info
               </h4>
+
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                   gap: '1rem',
-                  fontSize: '0.95rem',
+                  fontSize: '0.92rem',
                 }}
               >
-                <div>
-                  <span style={{ color: 'var(--text-muted)' }}>Location: </span>
-                  <span style={{ fontWeight: 500 }}>Kathmandu, Nepal</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <MapPin size={16} color="var(--text-muted)" />
+                  <div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Location</p>
+                    <p style={{ fontWeight: 600 }}>Kathmandu, Nepal</p>
+                  </div>
                 </div>
-                <div>
-                  <span style={{ color: 'var(--text-muted)' }}>Degree: </span>
-                  <span style={{ fontWeight: 500 }}>B.E. Computer Science</span>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <GraduationCap size={16} color="var(--text-muted)" />
+                  <div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Degree</p>
+                    <p style={{ fontWeight: 600 }}>B.E. Computer Science</p>
+                  </div>
                 </div>
-                <div>
-                  <span style={{ color: 'var(--text-muted)' }}>Email: </span>
-                  <a href="mailto:dipaksah2070@gmail.com" style={{ color: 'var(--primary)', fontWeight: 500 }}>
-                    dipaksah2070@gmail.com
-                  </a>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Mail size={16} color="var(--text-muted)" />
+                  <div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Email</p>
+                    <a
+                      href="mailto:dipaksah2070@gmail.com"
+                      style={{ color: 'var(--accent)', fontWeight: 600 }}
+                    >
+                      dipaksah2070@gmail.com
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <span style={{ color: 'var(--text-muted)' }}>Phone: </span>
-                  <a href="tel:+9779805104098" style={{ fontWeight: 500 }}>
-                    +977-9805104098
-                  </a>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Phone size={16} color="var(--text-muted)" />
+                  <div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Phone</p>
+                    <a href="tel:+9779805104098" style={{ fontWeight: 600 }}>
+                      +977-9805104098
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -170,7 +265,7 @@ export const About: React.FC = () => {
 
       <style>{`
         @media (min-width: 992px) {
-          .about-grid {
+          .about-grid-layout {
             grid-template-columns: 1.1fr 0.9fr !important;
           }
         }

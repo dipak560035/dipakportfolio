@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, FileText, ChevronDown, ArrowRight } from 'lucide-react';
+import { FileText, ChevronDown, ArrowRight, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { Link } from 'react-router-dom';
+
 const roles = [
   'Full Stack Developer',
-  'MERN Stack Developer',
-  'Computer Engineer',
-  'Next.js Developer'
+  'MERN Stack Architect',
+  'Next.js & React Engineer',
+  'Computer Science Engineer'
 ];
 
 export const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(100);
+  const [typingSpeed, setTypingSpeed] = useState(90);
+  const [activeTab, setActiveTab] = useState<'profile' | 'stack' | 'metrics'>('profile');
+
   useEffect(() => {
     let timer: number;
     const fullText = roles[roleIndex];
 
     const handleTyping = () => {
       if (!isDeleting) {
-        // Typing
         setCurrentText(fullText.substring(0, currentText.length + 1));
-        setTypingSpeed(100);
+        setTypingSpeed(90);
 
         if (currentText === fullText) {
-          // Pause at the end
-          timer = setTimeout(() => setIsDeleting(true), 2000) as unknown as number;
+          timer = setTimeout(() => setIsDeleting(true), 2200) as unknown as number;
           return;
         }
       } else {
-        // Deleting
         setCurrentText(fullText.substring(0, currentText.length - 1));
-        setTypingSpeed(50);
+        setTypingSpeed(45);
 
         if (currentText === '') {
           setIsDeleting(false);
@@ -49,46 +50,32 @@ export const Hero: React.FC = () => {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, roleIndex, typingSpeed]);
 
-  const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const top = (element as HTMLElement).offsetTop - 80;
-      window.scrollTo({
-        top,
-        behavior: 'smooth',
-      });
+  const handleNavScroll = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Framer Motion Variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3
-      }
-    }
-  } as const;
+        staggerChildren: 0.12,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: 'spring', stiffness: 100, damping: 15 }
-    }
-  } as const;
-
-  const profileVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: { type: 'spring', stiffness: 80, damping: 18, delay: 0.6 }
-    }
-  } as const;
+      transition: { duration: 0.5 },
+    },
+  };
 
   return (
     <section
@@ -104,303 +91,392 @@ export const Hero: React.FC = () => {
         zIndex: 1,
       }}
     >
-      {/* Dynamic background blur elements */}
-      <div className="blur-blob blob-1" />
-      <div className="blur-blob blob-2" style={{ animationDelay: '-5s' }} />
-
       <div className="container">
-        <div className="hero-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '3rem',
-          alignItems: 'center'
-        }}>
+        <div
+          className="hero-grid-layout"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gap: '3rem',
+            alignItems: 'center',
+          }}
+        >
           {/* Hero Left Content */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}
           >
-            {/* Status Tag */}
-            <motion.div
-              variants={itemVariants}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.2)', padding: '0.5rem 1rem', borderRadius: '99px', alignSelf: 'flex-start' }}
-            >
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block', boxShadow: '0 0 8px #10B981', animation: 'pulse-glow 2s infinite' }} />
-              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Open to New Opportunities</span>
+            {/* System Status Pill */}
+            <motion.div variants={itemVariants} style={{ alignSelf: 'flex-start' }}>
+              <div className="sys-status-pill">
+                <span className="status-dot-animated" />
+                <span>SYS_STATUS: AVAILABLE FOR OPPORTUNITIES</span>
+              </div>
             </motion.div>
 
             {/* Main Name Heading */}
             <motion.h1
               variants={itemVariants}
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 1.1, fontFamily: 'var(--font-display)', fontWeight: 800 }}
+              style={{
+                fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
+                lineHeight: 1.1,
+                fontFamily: 'var(--font-display)',
+                fontWeight: 800,
+                letterSpacing: '-0.02em',
+              }}
             >
-              Hi, I'm <br />
-              <span className="text-gradient">Dipak Sah</span>
+              Building Scalable <br />
+              <span className="text-gradient">Digital Web Apps</span>
             </motion.h1>
 
-            {/* Rotating Title */}
+            {/* Rotating Technical Title */}
             <motion.h2
               variants={itemVariants}
-              style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 600, color: 'var(--text-secondary)', height: '50px' }}
+              style={{
+                fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                fontWeight: 600,
+                color: 'var(--text-secondary)',
+                fontFamily: 'var(--font-mono)',
+                minHeight: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+              }}
             >
-              I am a <span className="cursor-blink" style={{ color: 'var(--primary)' }}>{currentText}</span>
+              <span style={{ color: 'var(--accent)' }}>&gt;</span> I am a{' '}
+              <span className="cursor-blink" style={{ color: 'var(--text-primary)', fontWeight: 700 }}>
+                {currentText}
+              </span>
             </motion.h2>
 
-            {/* Paragraph Introduction */}
+            {/* Intro Description */}
             <motion.p
               variants={itemVariants}
-              style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '580px', lineHeight: '1.7' }}
+              style={{
+                color: 'var(--text-secondary)',
+                fontSize: '1.05rem',
+                maxWidth: '600px',
+                lineHeight: '1.75',
+              }}
             >
-              Computer Science Engineer and Full Stack Developer specialized in building scalable, premium, and highly modern MERN Stack & Next.js web applications. I solve real-world problems through clean code and responsive engineering.
+              Computer Science Engineer and Full Stack Developer specialized in engineering robust, modern MERN Stack and Next.js web applications. Registered NEC Engineer (#15998 Comp) focused on performance, clean backend APIs, and sleek frontend UX.
             </motion.p>
 
-            {/* CTAs with hover physics */}
+            {/* Quick Specs Bar */}
             <motion.div
               variants={itemVariants}
-              className="hero-ctas"
-              style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem' }}
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '1rem',
+                fontSize: '0.82rem',
+                color: 'var(--text-muted)',
+                fontFamily: 'var(--font-mono)',
+                borderTop: '1px solid var(--card-border)',
+                borderBottom: '1px solid var(--card-border)',
+                padding: '0.75rem 0',
+              }}
             >
-              
-            <Link to="/projects">
-            <motion.button
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              className="btn btn-primary"
-            >
-              View Projects <ArrowRight size={18} />
-            </motion.button>
-          </Link>
-
-              
-                <motion.a
-                href="/Dipak_Sah_Resume.pdf"
-                download
-                className="btn btn-secondary"
-                >
-                <FileText size={18} />
-                Download Resume
-              </motion.a>
-<Link to="/contact">
-              <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={() => handleNavClick('#contact')}
-                className="btn btn-accent"
-              >
-                Contact Me
-              </motion.button>
-</Link>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <CheckCircle size={14} color="var(--accent)" /> React / Next.js
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <CheckCircle size={14} color="var(--accent)" /> Node.js / Express
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <CheckCircle size={14} color="var(--accent)" /> TypeScript
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <CheckCircle size={14} color="var(--accent)" /> PostgreSQL / MongoDB
+              </span>
             </motion.div>
 
-            {/* Social Icons */}
+            {/* CTAs */}
             <motion.div
               variants={itemVariants}
-              style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '1.5rem' }}
+              style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '0.5rem' }}
             >
-              <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>CONNECT:</span>
+              <Link to="/projects">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn btn-primary"
+                >
+                  View Projects <ArrowRight size={17} />
+                </motion.button>
+              </Link>
+
               <motion.a
-                whileHover={{ scale: 1.15, y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://github.com/dipak560035"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-hero-icon"
-                aria-label="GitHub Profile"
+                href="/Dipak_Sah_Resume.pdf"
+                download
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="btn btn-secondary"
               >
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                  <path d="M9 18c-4.51 2-5-2-7-2" />
-                </svg>
+                <FileText size={17} /> Resume
               </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.15, y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com/in/dipak-sah-bab95a202"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-hero-icon"
-                aria-label="LinkedIn Profile"
-              >
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.15, y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                href="mailto:dipaksah2070@gmail.com"
-                className="social-hero-icon"
-                aria-label="Send Email"
-              >
-                <Mail size={20} />
-              </motion.a>
+
+              <Link to="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn btn-accent"
+                >
+                  Contact Me
+                </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
 
-          {/* Hero Right Image (Profile Display) */}
+          {/* Hero Right Content: Developer Technical System Panel */}
           <motion.div
-            variants={profileVariants}
-            initial="hidden"
-            animate="visible"
-            style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <div className="profile-image-wrapper" style={{
-              position: 'relative',
-              width: 'min(360px, 80vw)',
-              height: 'min(360px, 80vw)',
-              borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
-              background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%)',
-              padding: '8px',
-              animation: 'morphing-border 8s ease-in-out infinite, float 6s ease-in-out infinite',
-              boxShadow: '0 20px 40px -10px rgba(var(--primary-rgb), 0.3)'
-            }}>
-              <img
-                src="/assets/profile.png"
-                alt="Dipak Sah profile headshot"
+            <div
+              className="glass-panel"
+              style={{
+                width: '100%',
+                maxWidth: '520px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-lg)',
+                border: '1px solid var(--card-border)',
+                background: 'rgba(11, 15, 23, 0.9)',
+              }}
+            >
+              {/* Terminal Window Header */}
+              <div
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: 'inherit',
-                  backgroundColor: 'var(--bg-secondary)',
+                  backgroundColor: 'rgba(17, 22, 34, 0.95)',
+                  padding: '0.65rem 1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderBottom: '1px solid var(--card-border)',
                 }}
-              />
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <span style={{ width: '11px', height: '11px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
+                  <span style={{ width: '11px', height: '11px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+                  <span style={{ width: '11px', height: '11px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+                  <span
+                    className="font-mono"
+                    style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginLeft: '0.6rem' }}
+                  >
+                    dipaksah@system-node ~ dev
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.25rem' }}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('profile')}
+                    style={{
+                      fontSize: '0.72rem',
+                      fontFamily: 'var(--font-mono)',
+                      padding: '0.2rem 0.5rem',
+                      borderRadius: '4px',
+                      border: 'none',
+                      background: activeTab === 'profile' ? 'rgba(6, 182, 212, 0.15)' : 'transparent',
+                      color: activeTab === 'profile' ? 'var(--accent)' : 'var(--text-muted)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Profile.ts
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('stack')}
+                    style={{
+                      fontSize: '0.72rem',
+                      fontFamily: 'var(--font-mono)',
+                      padding: '0.2rem 0.5rem',
+                      borderRadius: '4px',
+                      border: 'none',
+                      background: activeTab === 'stack' ? 'rgba(6, 182, 212, 0.15)' : 'transparent',
+                      color: activeTab === 'stack' ? 'var(--accent)' : 'var(--text-muted)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Stack.json
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('metrics')}
+                    style={{
+                      fontSize: '0.72rem',
+                      fontFamily: 'var(--font-mono)',
+                      padding: '0.2rem 0.5rem',
+                      borderRadius: '4px',
+                      border: 'none',
+                      background: activeTab === 'metrics' ? 'rgba(6, 182, 212, 0.15)' : 'transparent',
+                      color: activeTab === 'metrics' ? 'var(--accent)' : 'var(--text-muted)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Metrics.sh
+                  </button>
+                </div>
+              </div>
+
+              {/* Terminal Code Content Area */}
+              <div
+                className="font-mono"
+                style={{
+                  padding: '1.4rem',
+                  fontSize: '0.84rem',
+                  lineHeight: '1.7',
+                  minHeight: '300px',
+                  backgroundColor: '#07090E',
+                  color: 'var(--text-secondary)',
+                  overflowX: 'auto',
+                }}
+              >
+                {activeTab === 'profile' && (
+                  <div>
+                    <p style={{ color: 'var(--text-muted)' }}>// Developer System Object Definition</p>
+                    <p>
+                      <span style={{ color: '#F43F5E' }}>const</span>{' '}
+                      <span style={{ color: '#38BDF8' }}>developerProfile</span>:{' '}
+                      <span style={{ color: '#F59E0B' }}>EngineSpec</span> = &#123;
+                    </p>
+                    <div style={{ paddingLeft: '1.2rem' }}>
+                      <p>
+                        <span style={{ color: 'var(--accent)' }}>name</span>: <span style={{ color: '#10B981' }}>"Dipak Sah"</span>,
+                      </p>
+                      <p>
+                        <span style={{ color: 'var(--accent)' }}>role</span>: <span style={{ color: '#10B981' }}>"Full Stack Developer"</span>,
+                      </p>
+                      <p>
+                        <span style={{ color: 'var(--accent)' }}>degree</span>: <span style={{ color: '#10B981' }}>"B.E. Computer Science"</span>,
+                      </p>
+                      <p>
+                        <span style={{ color: 'var(--accent)' }}>license</span>: <span style={{ color: '#10B981' }}>"NEC Registered Engineer (#15998 Comp)"</span>,
+                      </p>
+                      <p>
+                        <span style={{ color: 'var(--accent)' }}>location</span>: <span style={{ color: '#10B981' }}>"Kathmandu, Nepal"</span>,
+                      </p>
+                      <p>
+                        <span style={{ color: 'var(--accent)' }}>availability</span>: <span style={{ color: '#F59E0B' }}>true</span>,
+                      </p>
+                      <p>
+                        <span style={{ color: 'var(--accent)' }}>focusAreas</span>: [
+                      </p>
+                      <div style={{ paddingLeft: '1rem', color: '#10B981' }}>
+                        <p>"Web Applications",</p>
+                        <p>"MERN Architecture",</p>
+                        <p>"RESTful API Design"</p>
+                      </div>
+                      <p>],</p>
+                    </div>
+                    <p>&#125;;</p>
+                  </div>
+                )}
+
+                {activeTab === 'stack' && (
+                  <div>
+                    <p style={{ color: 'var(--text-muted)' }}>// Primary System Technologies</p>
+                    <p>&#123;</p>
+                    <div style={{ paddingLeft: '1.2rem' }}>
+                      <p>
+                        <span style={{ color: '#38BDF8' }}>"frontend"</span>: [
+                        <span style={{ color: '#10B981' }}>"React.js"</span>, <span style={{ color: '#10B981' }}>"Next.js"</span>, <span style={{ color: '#10B981' }}>"TypeScript"</span>, <span style={{ color: '#10B981' }}>"Tailwind CSS"</span>
+                        ],
+                      </p>
+                      <p>
+                        <span style={{ color: '#38BDF8' }}>"backend"</span>: [
+                        <span style={{ color: '#10B981' }}>"Node.js"</span>, <span style={{ color: '#10B981' }}>"Express.js"</span>, <span style={{ color: '#10B981' }}>"REST APIs"</span>, <span style={{ color: '#10B981' }}>"Socket.io"</span>
+                        ],
+                      </p>
+                      <p>
+                        <span style={{ color: '#38BDF8' }}>"database"</span>: [
+                        <span style={{ color: '#10B981' }}>"MongoDB"</span>, <span style={{ color: '#10B981' }}>"PostgreSQL"</span>
+                        ],
+                      </p>
+                      <p>
+                        <span style={{ color: '#38BDF8' }}>"tooling"</span>: [
+                        <span style={{ color: '#10B981' }}>"Git"</span>, <span style={{ color: '#10B981' }}>"GitHub"</span>, <span style={{ color: '#10B981' }}>"Postman"</span>, <span style={{ color: '#10B981' }}>"VS Code"</span>
+                        ]
+                      </p>
+                    </div>
+                    <p>&#125;</p>
+                  </div>
+                )}
+
+                {activeTab === 'metrics' && (
+                  <div>
+                    <p style={{ color: 'var(--text-muted)' }}># Telemetry & Performance Snapshot</p>
+                    <p style={{ color: '#F59E0B' }}>$ system-health check --verbose</p>
+                    <br />
+                    <p>[<span style={{ color: '#10B981' }}>OK</span>] Component Architecture: Modular & Reusable</p>
+                    <p>[<span style={{ color: '#10B981' }}>OK</span>] Frontend Performance: Optimised Bundle</p>
+                    <p>[<span style={{ color: '#10B981' }}>OK</span>] Database Connection: Query Indexing Ready</p>
+                    <p>[<span style={{ color: '#10B981' }}>OK</span>] Security Policies: RLS & Input Sanitization Enabled</p>
+                    <br />
+                    <p style={{ color: 'var(--accent)' }}>&gt; Status: All engineering systems operational.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Technical Footer Status */}
+              <div
+                style={{
+                  backgroundColor: 'rgba(17, 22, 34, 0.95)',
+                  padding: '0.5rem 1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderTop: '1px solid var(--card-border)',
+                  fontSize: '0.72rem',
+                  fontFamily: 'var(--font-mono)',
+                  color: 'var(--text-muted)',
+                }}
+              >
+                <span>UTF-8 | TypeScript 5.x</span>
+                <span style={{ color: '#10B981' }}>● 100% Compiled</span>
+              </div>
             </div>
-
-            {/* Floating Info badge cards */}
-            <motion.div
-              initial={{ x: -30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.9, type: 'spring' }}
-              className="glass-card floating-card-1"
-              style={{ position: 'absolute', top: '10%', left: '0', padding: '0.75rem 1.25rem', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '0.5rem', transform: 'rotate(-5deg)', animation: 'float 5s infinite alternate ease-in-out' }}
-            >
-              <span style={{ fontSize: '1.5rem' }}>💻</span>
-              <div>
-                <p style={{ fontSize: '0.8rem', fontWeight: 800, margin: 0 }}>Full-Stack</p>
-                <p style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', margin: 0 }}>MERN / NextJS</p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ x: 30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 1.1, type: 'spring' }}
-              className="glass-card floating-card-2"
-              style={{ position: 'absolute', bottom: '10%', right: '0', padding: '0.75rem 1.25rem', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '0.5rem', transform: 'rotate(5deg)', animation: 'float 7s infinite alternate-reverse ease-in-out' }}
-            >
-              <span style={{ fontSize: '1.5rem' }}>🎓</span>
-              <div>
-                <p style={{ fontSize: '0.8rem', fontWeight: 800, margin: 0 }}>B.E. CSE</p>
-                <p style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', margin: 0 }}>NEC Engineer</p>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
 
         {/* Scroll Indicator */}
         <div
-          onClick={() => handleNavClick('#about')}
+          onClick={() => handleNavScroll('about')}
           style={{
             position: 'absolute',
-            bottom: '40px',
+            bottom: '20px',
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '0.25rem',
+            gap: '0.2rem',
             cursor: 'pointer',
-            color: 'var(--text-secondary)',
-            fontSize: '0.85rem',
-            transition: 'var(--transition-fast)',
+            color: 'var(--text-muted)',
+            fontSize: '0.8rem',
+            fontFamily: 'var(--font-mono)',
+            transition: 'color 0.2s ease',
           }}
           className="scroll-indicator"
         >
-          <span>Scroll Down</span>
-          <ChevronDown size={18} className="scroll-chevron-animation" />
+          <span>SCROLL_DOWN</span>
+          <ChevronDown size={16} />
         </div>
       </div>
 
       <style>{`
-        .social-hero-icon {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          background: var(--bg-secondary);
-          border: 1px solid var(--card-border);
-          display: flex;
-          alignItems: center;
-          justifyContent: center;
-          color: var(--text-secondary);
-          transition: var(--transition-normal);
-        }
-        .social-hero-icon:hover {
-          color: white;
-          background: var(--primary);
-          transform: translateY(-2px);
-          box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.3);
-        }
-
-        .change-profile-button {
-          position: absolute;
-          right: 12px;
-          bottom: 12px;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.35rem;
-          padding: 0.5rem 0.7rem;
-          border: 1px solid rgba(255, 255, 255, 0.35);
-          border-radius: 8px;
-          background: rgba(15, 23, 42, 0.78);
-          color: white;
-          font: inherit;
-          font-size: 0.75rem;
-          font-weight: 700;
-          cursor: pointer;
-          opacity: 0.9;
-          transform: translateY(0);
-          transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
-        }
-
-        .profile-image-wrapper:hover .change-profile-button,
-        .change-profile-button:focus-visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .change-profile-button:hover {
-          background: var(--primary);
-        }
-        
-        @keyframes morphing-border {
-          0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-          50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-          100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        }
-
-        .scroll-chevron-animation {
-          animation: bounce-chevron 2s infinite;
-        }
-
-        @keyframes bounce-chevron {
-          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-          40% { transform: translateY(-6px); }
-          60% { transform: translateY(-3px); }
-        }
-
         @media (min-width: 992px) {
-          .hero-grid {
-            grid-template-columns: 1.2fr 0.8fr !important;
+          .hero-grid-layout {
+            grid-template-columns: 1.15fr 0.85fr !important;
           }
         }
-        
         .scroll-indicator:hover {
-          color: var(--primary);
+          color: var(--accent) !important;
         }
       `}</style>
     </section>

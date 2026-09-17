@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { MessageSquare, X, Send, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,19 +19,18 @@ export const RecruiterWidget: React.FC = () => {
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  // Synthesize a clean modern "notification chime" using Web Audio API (no external file dependency)
-  const playChime = () => {
+  // Synthesize a clean modern "notification chime" using Web Audio API
+  const playChime = useCallback(() => {
     if (!soundEnabled) return;
     try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
       
-      // Tone 1
       const osc1 = ctx.createOscillator();
       const gain1 = ctx.createGain();
       osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+      osc1.frequency.setValueAtTime(587.33, ctx.currentTime);
       gain1.gain.setValueAtTime(0.08, ctx.currentTime);
       gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
       osc1.connect(gain1);
@@ -39,12 +38,11 @@ export const RecruiterWidget: React.FC = () => {
       osc1.start();
       osc1.stop(ctx.currentTime + 0.4);
 
-      // Tone 2 (offset)
       setTimeout(() => {
         const osc2 = ctx.createOscillator();
         const gain2 = ctx.createGain();
         osc2.type = 'sine';
-        osc2.frequency.setValueAtTime(880, ctx.currentTime); // A5
+        osc2.frequency.setValueAtTime(880, ctx.currentTime);
         gain2.gain.setValueAtTime(0.08, ctx.currentTime);
         gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
         osc2.connect(gain2);
@@ -56,10 +54,9 @@ export const RecruiterWidget: React.FC = () => {
     } catch (e) {
       console.warn('Audio play blocked or unsupported:', e);
     }
-  };
+  }, [soundEnabled]);
 
   useEffect(() => {
-    // Initial recruiter trigger after 4 seconds
     const timer = setTimeout(() => {
       const initialMsg: Message = {
         id: '1',
@@ -73,10 +70,9 @@ export const RecruiterWidget: React.FC = () => {
     }, 4500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [playChime]);
 
   useEffect(() => {
-    // Scroll to bottom on new messages
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
@@ -90,9 +86,8 @@ export const RecruiterWidget: React.FC = () => {
   const simulateRecruiterResponse = (userText: string) => {
     setIsTyping(true);
 
-    // Context-aware typing lag
     setTimeout(() => {
-      let reply = "";
+      let reply: string;
       const query = userText.toLowerCase();
 
       if (query.includes('schedule') || query.includes('chat') || query.includes('call') || query.includes('interview')) {
@@ -141,7 +136,6 @@ export const RecruiterWidget: React.FC = () => {
 
   return (
     <>
-      {/* Floating Recruiter Button */}
       <div style={{ position: 'fixed', bottom: '95px', right: '30px', zIndex: 999 }}>
         <motion.button
           onClick={isOpen ? () => setIsOpen(false) : handleOpenWidget}
@@ -168,7 +162,6 @@ export const RecruiterWidget: React.FC = () => {
         >
           {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
 
-          {/* New message notification badge */}
           {hasNewMessage && !isOpen && (
             <span
               style={{
@@ -188,7 +181,6 @@ export const RecruiterWidget: React.FC = () => {
         </motion.button>
       </div>
 
-      {/* Recruiter Chat Console Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -212,7 +204,6 @@ export const RecruiterWidget: React.FC = () => {
               border: '1px solid rgba(139, 92, 246, 0.2)',
             }}
           >
-            {/* Chat Header */}
             <div
               style={{
                 padding: '1rem 1.25rem',
@@ -224,7 +215,6 @@ export const RecruiterWidget: React.FC = () => {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                {/* Recruiter Avatar */}
                 <div style={{ position: 'relative' }}>
                   <div
                     style={{
@@ -242,7 +232,6 @@ export const RecruiterWidget: React.FC = () => {
                   >
                     S
                   </div>
-                  {/* Status Indicator */}
                   <span
                     style={{
                       position: 'absolute',
@@ -267,7 +256,6 @@ export const RecruiterWidget: React.FC = () => {
                 </div>
               </div>
 
-              {/* Sound & Controls */}
               <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                 <button
                   onClick={() => setSoundEnabled(!soundEnabled)}
@@ -299,7 +287,6 @@ export const RecruiterWidget: React.FC = () => {
               </div>
             </div>
 
-            {/* Chat Messages Log */}
             <div
               style={{
                 flexGrow: 1,
@@ -328,7 +315,6 @@ export const RecruiterWidget: React.FC = () => {
                     alignItems: msg.sender === 'recruiter' ? 'flex-start' : 'flex-end',
                   }}
                 >
-                  {/* Bubble */}
                   <div
                     style={{
                       padding: '0.75rem 1rem',
@@ -347,14 +333,12 @@ export const RecruiterWidget: React.FC = () => {
                   >
                     {msg.text}
                   </div>
-                  {/* Meta */}
                   <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.25rem', padding: '0 4px' }}>
                     {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
               ))}
 
-              {/* Typing Indicator */}
               {isTyping && (
                 <div style={{ alignSelf: 'flex-start', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
                   <div
@@ -378,7 +362,6 @@ export const RecruiterWidget: React.FC = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Replies Panel */}
             {messages.length > 0 && messages[messages.length - 1].sender === 'recruiter' && !isTyping && (
               <div
                 style={{
@@ -441,7 +424,6 @@ export const RecruiterWidget: React.FC = () => {
               </div>
             )}
 
-            {/* Input Bar Form */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -494,7 +476,6 @@ export const RecruiterWidget: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Embedded Animations Styling */}
       <style>{`
         @keyframes bounce-dot {
           0%, 100% { transform: translateY(0); }

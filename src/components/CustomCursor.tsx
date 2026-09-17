@@ -5,13 +5,13 @@ export const CustomCursor: React.FC = () => {
   const [trail, setTrail] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
   const [hidden, setHidden] = useState(true);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile] = useState(() => {
+    return typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  });
 
   useEffect(() => {
     // Check if it's touch device
     const touchDevice = window.matchMedia('(pointer: coarse)').matches;
-    setIsMobile(touchDevice);
-
     if (touchDevice) return;
 
     const handleMouseMove = (e: MouseEvent) => {
