@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Mail, FileText, ChevronDown, ArrowRight, Camera } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, FileText, ChevronDown, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 const roles = [
@@ -14,28 +14,6 @@ export const Hero: React.FC = () => {
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(100);
-  const [profileImage, setProfileImage] = useState(() => {
-    if (typeof window === 'undefined') return '/assets/profile.png';
-    return localStorage.getItem('profile_image') || '/assets/profile.png';
-  });
-  const profileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file || !file.type.startsWith('image/')) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const imageData = reader.result;
-      if (typeof imageData === 'string') {
-        setProfileImage(imageData);
-        localStorage.setItem('profile_image', imageData);
-      }
-    };
-    reader.readAsDataURL(file);
-    event.target.value = '';
-  };
-
   useEffect(() => {
     let timer: number;
     const fullText = roles[roleIndex];
@@ -281,7 +259,7 @@ export const Hero: React.FC = () => {
               boxShadow: '0 20px 40px -10px rgba(var(--primary-rgb), 0.3)'
             }}>
               <img
-                src={profileImage}
+                src="/assets/profile.png"
                 alt="Dipak Sah profile headshot"
                 style={{
                   width: '100%',
@@ -290,23 +268,6 @@ export const Hero: React.FC = () => {
                   borderRadius: 'inherit',
                   backgroundColor: 'var(--bg-secondary)',
                 }}
-              />
-              <button
-                type="button"
-                className="change-profile-button"
-                onClick={() => profileInputRef.current?.click()}
-                aria-label="Change profile photo"
-              >
-                <Camera size={16} />
-                Change photo
-              </button>
-              <input
-                ref={profileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleProfileImageChange}
-                aria-label="Choose a profile photo"
-                style={{ display: 'none' }}
               />
             </div>
 
